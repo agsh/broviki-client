@@ -17,5 +17,8 @@
   "scripts": {
     "build": "webpack",
     "server": "webpack-dev-server"
+  },
+  "dependencies": {
+    "flux": "^2.1.1"
   }
 }
