@@ -1,6 +1,6 @@
-import AppDispatcher from '../dispatchers/AppDispatcher.js';
+import AppDispatcher from '../dispatchers/app';
 import {LOGIN_USER, LOGOUT_USER} from '../constants/auth';
-import RouterContainer from '../services/RouterContainer';
+import RouterContainer from '../services/router';
 
 export default {
 	loginUser: (jwt) => {
