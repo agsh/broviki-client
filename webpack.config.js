@@ -6,7 +6,7 @@ const APP_DIR = path.resolve(__dirname, 'src')
 	;
 
 const config = {
-	entry: APP_DIR + '/index.js',
+	entry: APP_DIR + '/app.js',
 	devtool: 'source-map',
 	devServer: { inline: true },
 	output: {
