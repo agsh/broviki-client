@@ -18,7 +18,8 @@
     "rules": {
         "indent": [
             "error",
-            "tab"
+            "tab",
+            { "SwitchCase": 1 }
         ],
         "linebreak-style": [
             "error",
@@ -32,6 +33,7 @@
             "error",
             "always"
         ],
-        "no-unused-vars": 1
+        "no-unused-vars": 1,
+        "no-console": 0
     }
 }
