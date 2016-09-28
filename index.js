@@ -28675,7 +28675,7 @@
 	
 	var _dashboard2 = _interopRequireDefault(_dashboard);
 	
-	var _requireAuth = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../components/auth/require-auth\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _requireAuth = __webpack_require__(459);
 	
 	var _requireAuth2 = _interopRequireDefault(_requireAuth);
 	
@@ -39807,7 +39807,80 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Dashboard);
 
 /***/ },
-/* 459 */,
+/* 459 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	exports.default = function (ComposedComponent) {
+		var Authentication = function (_Component) {
+			_inherits(Authentication, _Component);
+	
+			function Authentication() {
+				_classCallCheck(this, Authentication);
+	
+				return _possibleConstructorReturn(this, (Authentication.__proto__ || Object.getPrototypeOf(Authentication)).apply(this, arguments));
+			}
+	
+			_createClass(Authentication, [{
+				key: 'componentWillMount',
+				value: function componentWillMount() {
+					if (!this.props.authenticated) {
+						this.context.router.push('/login');
+					}
+				}
+			}, {
+				key: 'componentWillUpdate',
+				value: function componentWillUpdate(nextProps) {
+					if (!nextProps.authenticated) {
+						this.context.router.push('/login');
+					}
+				}
+			}, {
+				key: 'render',
+				value: function render() {
+					return _react2.default.createElement(ComposedComponent, this.props);
+				}
+			}, {
+				key: 'contextTypes',
+				get: function get() {
+					return {
+						router: _react2.default.PropTypes.object
+					};
+				}
+			}]);
+	
+			return Authentication;
+		}(_react.Component);
+	
+		function mapStateToProps(state) {
+			return { authenticated: state.auth.authenticated };
+		}
+	
+		return (0, _reactRedux.connect)(mapStateToProps)(Authentication);
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(172);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/***/ },
 /* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -39821,7 +39894,7 @@
 	
 	var _reduxForm = __webpack_require__(263);
 	
-	var _auth_reducer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./auth_reducer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _auth_reducer = __webpack_require__(461);
 	
 	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
 	
@@ -39833,6 +39906,40 @@
 	});
 	
 	exports.default = rootReducer;
+
+/***/ },
+/* 461 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function () {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? INITIAL_STATE : arguments[0];
+		var action = arguments[1];
+	
+		switch (action.type) {
+			case _types.AUTH_USER:
+				return Object.assign({}, state, {
+					error: '', message: '', authenticated: true
+				});
+			case _types.UNAUTH_USER:
+				return Object.assign({}, state, { authenticated: false });
+			case _types.AUTH_ERROR:
+				return Object.assign({}, state, { error: action.payload });
+			case _types.PROTECTED_TEST:
+				return Object.assign({}, state, { content: action.payload });
+		}
+	
+		return state;
+	};
+	
+	var _types = __webpack_require__(456);
+	
+	var INITIAL_STATE = { error: '', message: '', content: '', authenticated: false };
 
 /***/ }
 /******/ ]);
