@@ -1,25 +1,25 @@
 import React from 'react';
-import Router, {Route} from 'react-router';
-import AuthApp from './components/app';
-import RouterContainer from './services/router';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { Router, browserHistory } from 'react-router';
+import reduxThunk from 'redux-thunk';
+import routes from './routes';
+import reducers from './reducers/index';
+import { AUTH_USER } from './actions/types';
+import cookie from 'react-cookie';
 
-const routes = (
-	<Route handler={AuthApp}>
-		<Route name="login" handler={Login}/>
-		<Route name="signup" handler={Signup}/>
-		<Route name="home" path="/" handler={Home}/>
-		<Route name="quote" handler={Quote}/>
-	</Route>
-);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
 
-var router = Router.create({routes});
-RouterContainer.set(router);
+const token = cookie.load('token');
 
-let jwt = localStorage.getItem('jwt');
-if (jwt) {
-	LoginActions.loginUser(jwt);
+if (token) {
+	store.dispatch({ type: AUTH_USER });
 }
 
-router.run(function(Handler) {
-	React.render(<Handler />, document.getElementById('content'));
-});
+ReactDOM.render(
+	<Provider store={store}>
+		<Router history={browserHistory} routes={routes} />
+	</Provider>,
+	document.getElementById('content'));
