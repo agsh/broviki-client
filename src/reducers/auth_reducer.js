@@ -6,17 +6,17 @@ import { AUTH_USER,
 const INITIAL_STATE = { error: '', message: '', content: '', authenticated: false};
 
 export default function (state = INITIAL_STATE, action) {
-	switch(action.type) {
+	switch (action.type) {
 		case AUTH_USER:
 			return Object.assign({}, state, {
 				error: '', message: '', authenticated: true
 			});
 		case UNAUTH_USER:
-			return Object.assign({}, state, { authenticated: false });
+			return {...state, authenticated: false};
 		case AUTH_ERROR:
-			return Object.assign({}, state, { error: action.payload });
+			return {...state, error: action.payload};
 		case PROTECTED_TEST:
-			return Object.assign({}, state, { content: action.payload });
+			return {...state, content: action.payload};
 	}
 
 	return state;
